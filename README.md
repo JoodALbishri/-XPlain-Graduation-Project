@@ -1,3 +1,125 @@
-# -XPlain-Graduation-Project
-XPlain — Explainable deep learning framework for detecting AI-generated faces. Combines MobileNetV2 with a custom SRM noise filter in a two-stream architecture, using Grad-CAM heatmaps and text explanations for interpretable real vs. AI-generated classification. Built with TensorFlow/Keras, deployed via Streamlit.
-XPlain is a graduation project that tackles the "black-box" problem in deepfake detection. Instead of relying on a single visual pathway, the model splits processing into two parallel streams: one based on MobileNetV2 for capturing high-level facial structure, and another using fixed Spatial Rich Model (SRM) filters to extract pixel-level forensic noise that generative models typically leave behind. The two feature sets are fused for classification, while Grad-CAM generates visual heatmaps and a rule-based module produces short textual explanations, so users can see not just the prediction but the reasoning behind it. Trained on the 140K Real and Fake Faces dataset, achieving 99.67% validation accuracy. Deployed as an interactive Streamlit app.
+# XPlain
+### An Explainable Deep Learning Framework for Detecting AI-Generated Images
+
+XPlain is a graduation project that tackles the "black-box" problem in deepfake detection. Instead of relying on a single visual pathway, the model splits processing into two parallel streams: one based on **MobileNetV2** for capturing high-level facial structure, and another using fixed **Spatial Rich Model (SRM)** filters to extract pixel-level forensic noise that generative models typically leave behind. The two feature sets are fused for classification, while **Grad-CAM** generates visual heatmaps and a rule-based module produces short textual explanations, so users can see not just the prediction but the reasoning behind it.
+
+Trained on the **140K Real and Fake Faces** dataset, achieving **99.67% validation accuracy**. Deployed as an interactive Streamlit app.
+
+---
+
+## Features
+
+- Binary classification of facial images: **Real** vs **AI-Generated**
+- Two-stream architecture combining RGB semantic features (MobileNetV2) and forensic noise features (SRM filters)
+- Visual explainability via **Grad-CAM** heatmaps
+- Automatic textual explanations describing the model's reasoning
+- Interactive web interface built with **Streamlit**
+- Model performance dashboard (accuracy/loss curves, confusion matrix, class-level metrics)
+
+---
+
+## Screenshots
+
+| Image Analysis | Visual Explanations |
+|---|---|
+| ![Prediction Result](assets/prediction_example.png) | ![Grad-CAM](assets/gradcam_example.png) |
+
+| Model Dashboard |
+|---|
+| ![Dashboard](assets/dashboard.png) |
+
+---
+
+## Project Structure
+
+```
+XPlain/
+├── app.py                  # Streamlit application
+├── requirements.txt        # Python dependencies
+├── model/
+│   └── Deepfake_TwoStream_Final.h5   # Trained model weights
+├── assets/                 # Screenshots used in this README
+└── docs/
+    └── report.pdf          # Full graduation project report
+```
+
+---
+
+## Installation & Usage
+
+1. Clone the repository:
+```bash
+git clone https://github.com/your-username/XPlain.git
+cd XPlain
+```
+
+2. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+3. Run the app:
+```bash
+streamlit run app.py
+```
+
+4. Open the local URL shown in the terminal (usually `http://localhost:8501`).
+
+---
+
+## Model Architecture
+
+- **Stream A (RGB):** MobileNetV2 (pretrained on ImageNet) extracts a 1280-dim semantic feature vector encoding facial structure and texture.
+- **Stream B (Forensic):** A custom SRM filter layer (fixed, non-trainable weights) extracts high-frequency noise residuals, processed through a dedicated CNN to produce a 128-dim noise signature.
+- **Fusion:** Both streams are concatenated and passed through a Dense(256) bottleneck, Dropout(0.4), and a sigmoid output layer for binary classification.
+- **Explainability:** Grad-CAM is applied on the last convolutional layer of MobileNetV2 to generate attention heatmaps, complemented by rule-based textual explanations.
+
+---
+
+Dataset
+
+This project uses the **[140K Real and Fake Faces](https://www.kaggle.com/datasets/xhlulu/140k-real-and-fake-faces)** dataset from Kaggle (~140,000 labeled images, real vs. GAN-generated).
+
+> Note: The dataset is not included in this repository due to its size. Download it directly from Kaggle if you wish to retrain the model.
+
+---
+
+ Results
+
+| Metric | Score |
+|---|---|
+| Validation Accuracy | 99.67% |
+| Validation Loss | 0.0107 |
+| AI-Generated Precision | 99.68% |
+| Real Precision | 99.66% |
+| AUC (ROC) | 0.9999 |
+
+---
+
+Tech Stack
+
+Python · TensorFlow / Keras · OpenCV · Grad-CAM · Streamlit · Google Colab
+
+---
+
+ Team
+
+- Jood Musaad Albishri
+- Saja Naif Almalki
+- Ghadi Hamzah Alhyanie
+- Rahaf Alradadi
+- Afnan Alsubhi
+
+Project Advisor:Dr. Mashael Alluhaybi
+
+Computer Science Department — Jamoum University College, Umm Al-Qura University
+
+---
+
+Limitations & Future Work
+- Limited generalization to modern diffusion-based generators (e.g., Midjourney, DALL-E 3)
+- Currently supports static images only (no video deepfake detection)
+- Textual explanations are rule-based, not generated by an LLM
+- Future work includes attention-based stream fusion, dataset expansion, and video-level detection
+
+See the full report in `docs/report.pdf` for detailed methodology, evaluation, and discussion.
