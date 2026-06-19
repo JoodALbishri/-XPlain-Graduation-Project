@@ -22,6 +22,9 @@ Trained on the **140K Real and Fake Faces** dataset, achieving **99.67% validati
 
 | Image Analysis | Visual Explanations |
 |---|---|
+<h2>Prediction Result</h2>
+
+<img src="assets/Image analysis" width="700">
 | ![Prediction Result](assets/Image analysis.png) | ![Grad-CAM](assets/gradcam_example.png) |
 
 | Model Dashboard |
