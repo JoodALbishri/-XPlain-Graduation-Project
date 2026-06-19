@@ -25,15 +25,15 @@ The model was trained on the 140K Real and Fake Faces dataset and achieved 99.67
 
 ### Image Analysis
 
-<img src="assets/image_analysis" width="700">
+<img src="assets/image_analysis.pg" width="700">
 
 ### Visual Explainability
 
-<img src="assets/visual_explainability" width="700">
+<img src="assets/visual_explainability.png" width="700">
 
 ### Result Interpretation and Confidence Summary
 
-<img src="assets/result_interpretation" width="700">
+<img src="assets/result_interpretation.png" width="700">
 
 ---
 
@@ -51,9 +51,9 @@ XPlain/
 │   └── requirements.txt
 │
 ├── assets/
-│   ├── image_analysis
-│   ├── visual_explainability
-│   └── result_interpretation
+│   ├── image_analysis.png
+│   ├── visual_explainability.png
+│   └── result_interpretation.png
 │
 ├── Graduation project-final.pdf
 └── README.md
